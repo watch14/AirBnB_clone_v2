@@ -4,18 +4,20 @@
 if [ ! -x /usr/sbin/nginx ]
 then
 	sudo apt-get update
-	sudo apt-get install nginx
+	sudo apt-get upgrade -y
+	sudo apt-get install -y nginx
+	sudo service nginx start
 fi
 
 sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 
 echo "<html>
-  <head>
-  </head>
-  <body>
-    Holberton School
-  </body>
+<head>
+</head>
+<body>
+Holberton School
+</body>
 </html>" | sudo tee /data/web_static/releases/test/index.html
 
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
