@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# send archive to a web server.
+# dep archive to a web server.
 import os.path
 from datetime import datetime
 from fabric.api import env
@@ -11,7 +11,7 @@ env.hosts = ["52.91.147.124", "107.21.183.54"]
 
 
 def do_pack():
-    """Create a tar gzipped archive of the directory web_static."""
+    """pack"""
     dt = datetime.utcnow()
     file = "versions/web_static_{}{}{}{}{}{}.tgz".format(dt.year,
                                                          dt.month,
@@ -22,14 +22,13 @@ def do_pack():
     if os.path.isdir("versions") is False:
         if local("mkdir -p versions").failed is True:
             return None
-
     if local("tar -cvzf {} web_static".format(file)).failed is True:
         return None
     return file
 
 
 def do_deploy(archive_path):
-    """send archive to a web server."""
+    """Distributes to a web server"""
     if os.path.isfile(archive_path) is False:
         return False
     file = archive_path.split("/")[-1]
@@ -63,9 +62,8 @@ def do_deploy(archive_path):
 
 
 def deploy():
-    """ deploy """
+    """deploy to web server."""
     file = do_pack()
-
     if file is None:
         return False
 
