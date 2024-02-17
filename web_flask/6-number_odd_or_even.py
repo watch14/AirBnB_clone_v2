@@ -3,6 +3,7 @@
 from flask import Flask
 from flask import render_template
 
+
 app = Flask(__name__)
 
 
@@ -42,6 +43,16 @@ def indexfive(n):
 def indexsix(n):
     """ func6 """
     return render_template('5-number.html', number=n)
+
+
+@app.route("/number_odd_or_even/<int:n>", strict_slashes=False)
+def indexseven(n):
+    """ func7 """
+    if n % 2 == 0:
+        p = "even"
+    else:
+        p = "odd"
+    return render_template('6-number_odd_or_even.html', number=n, x=p)
 
 
 if __name__ == "__main__":
