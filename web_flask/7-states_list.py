@@ -8,17 +8,17 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.teardown_appcontext
-def handle_teardown(self):
-    """teardow"""
-    storage.close()
-
-
 @app.route('/states_list', strict_slashes=False)
-def state_list():
-    """ list sates """
-    states = storage.all('State').values()
-    return render_template("7-states_list.html", states=states)
+def states_list():
+    """ list staets """
+    states = storage.all(State)
+    return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def teardown(error):
+    """ teardown cuh """
+    storage.close()
 
 
 if __name__ == '__main__':
