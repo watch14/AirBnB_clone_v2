@@ -1,21 +1,28 @@
 #!/usr/bin/python3
 """flask"""
-from flask import Flask, render_template
+from flask import Flask
+from flask import render_template
 from models import storage
-import os
-
+from models.state import State
 
 app = Flask(__name__)
 
 
 @app.route('/states', strict_slashes=False)
-@app.route('/states/<state_id>', strict_slashes=False)
-def states(state_id=None):
-    """f ..state- f..state.id"""
-    states = storage.all("State")
-    if state_id is not None:
-        state_id = 'State.' + state_id
-    return render_template('9-states.html', states=states, state_id=state_id)
+@app.route('/states/<id>', strict_slashes=False)
+def states(id=None):
+    """ Route function for /states and /states/<id> """
+    not_found = False
+    if id is not None:
+        states = storage.all(State, id)
+        with_id = True
+        if len(states) == 0:
+            not_found = True
+    else:
+        states = storage.all(State)
+        with_id = False
+    return render_template('9-states.html', states=states,
+                           with_id=with_id, not_found=not_found)
 
 
 @app.teardown_appcontext
@@ -25,4 +32,4 @@ def teardown(exception):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port='5000')
