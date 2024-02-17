@@ -2,6 +2,8 @@
 """ flask 2 """
 from flask import Flask
 from flask import render_template
+from models import storage
+from models.state import State
 
 
 app = Flask(__name__)
@@ -53,6 +55,19 @@ def indexseven(n):
     else:
         p = "odd"
     return render_template('6-number_odd_or_even.html', number=n, x=p)
+
+
+@app.route('/states_list', strict_slashes=False)
+def states_list():
+    """ func list """
+    states = storage.all(State)
+    return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def close(error):
+    """ fnc err """
+    storage.close()
 
 
 if __name__ == "__main__":
