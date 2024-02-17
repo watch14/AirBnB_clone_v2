@@ -21,7 +21,8 @@ def indextwo():
 def indexthree(text):
     """ func3 """
     text = text.replace("_", " ")
-    return "C " +f"{text}"
+    return "C " + f"{text}"
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
