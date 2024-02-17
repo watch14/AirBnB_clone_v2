@@ -27,9 +27,9 @@ def indexthree(text):
 @app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python(text):
-    """ def doc """
+    """ func4 """
     text = text.replace("_", " ")
-    return "python " + f"{text}"
+    return "python {}".format(text)
 
 
 if __name__ == "__main__":
