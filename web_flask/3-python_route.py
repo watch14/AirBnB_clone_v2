@@ -24,12 +24,11 @@ def indexthree(text):
     return "C " + f"{text}"
 
 
-@app.route("/python", defaults={"text": "is cool"}, strict_slashes=False)
-@app.route("/python/<text>", strict_slashes=False)
-def indexfour(text):
-    """ func4 """
-    text = text.replace("_", " ")
-    return "python " + f"{text}"
+@app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
+def python(text):
+    """ def doc """
+    return 'Python {}'.format(text.replace("_", " "))
 
 
 if __name__ == "__main__":
