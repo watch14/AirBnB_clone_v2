@@ -8,28 +8,20 @@ import os
 app = Flask(__name__)
 
 
-@app.teardown_appcontext
-def teardown(self):
-    """tearup"""
-    storage.close()
-
-
 @app.route('/states', strict_slashes=False)
-@app.route('/states/<id>', strict_slashes=False)
-def states(id=None):
-    """ f...f """
-    missin = False
-    if id is not None:
-        states = storage.all(State, id)
-        id_pls = True
-        if len(states) == 0:
-            missin = True
-    else:
-        states = storage.all(State)
-        id_pls = False
-    return render_template(
-            '9-states.html', states=states, with_id=id_pls,
-            not_found=missin)
+@app.route('/states/<state_id>', strict_slashes=False)
+def states(state_id=None):
+    """f ..state- f..state.id"""
+    states = storage.all("State")
+    if state_id is not None:
+        state_id = 'State.' + state_id
+    return render_template('9-states.html', states=states, state_id=state_id)
+
+
+@app.teardown_appcontext
+def teardown(exception):
+    """closes"""
+    storage.close()
 
 
 if __name__ == '__main__':
